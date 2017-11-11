@@ -1,0 +1,1 @@
+web: java $JVM_OPTS -cp target/isthereafuckingbroncosgame-standalone.jar clojure.main -m isthereafuckingbroncosgame.web
