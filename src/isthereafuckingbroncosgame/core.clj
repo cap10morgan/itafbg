@@ -12,8 +12,15 @@
   "https://www.stanza.co/api/schedules/nfl-broncos/nfl-broncos.ics")
 
 (def nfl-season
-  {:start #inst "2017-09-07"
-   :end   #inst "2018-02-04"})
+  {:start (t/local-date 2017 9 7)
+   :end   (t/local-date 2018 2 4)})
+
+(defn cal-date->local-date-time [date]
+  (-> date
+      .getDate
+      tc/to-date-time
+      (t/to-time-zone (t/time-zone-for-id "America/Denver"))
+      tc/to-local-date-time))
 
 (defn game-dates []
   (let [ical (-> broncos-schedule-url
@@ -23,37 +30,32 @@
         builder (CalendarBuilder.)
         cal (.build builder sr)]
     (for [c (.getComponents cal)]
-      {:start (.getDate (.getStartDate c))
-       :end   (.getDate (.getEndDate c))})))
+      {:start (cal-date->local-date-time (.getStartDate c))
+       :end   (cal-date->local-date-time (.getEndDate c))})))
 
 (defn is-it-fucking-football-season? [date]
-  (let [jdate (tc/from-date date)
-        after-start? (t/after? jdate (tc/from-date (:start nfl-season)))
-        before-end? (t/before? jdate (tc/from-date (:end nfl-season)))]
+  (let [after-start? (t/after? date (:start nfl-season))
+        before-end? (t/before? date (:end nfl-season))]
     (and after-start? before-end?)))
 
-(defn is-this-fucking-game-on-this-date? [date game]
-  (let [jstart (tc/from-date (:start game))
-        jdate (tc/from-date date)]
-    (and (= (t/year jstart) (t/year jdate))
-         (= (t/month jstart) (t/month jdate))
-         (= (t/day jstart) (t/day jdate)))))
+(defn is-this-fucking-game-on-this-date? [date {:keys [start]}]
+  (and (= (t/year start) (t/year date))
+       (= (t/month start) (t/month date))
+       (= (t/day start) (t/day date))))
 
 (defn is-there-a-fucking-broncos-game? [date]
   (boolean (some (partial is-this-fucking-game-on-this-date? date)
                  (game-dates))))
 
 (defn -main [& args]
-  (let [dates (game-dates)
-        date-arg (first args)
+  (let [date-arg (first args)
         today (if date-arg
                 (->> date-arg
                      (tf/parse (tf/formatter "yyyy-MM-dd"))
-                     tc/to-date)
-                (Date.))]
-    (println "Using date" today)
-    (doseq [d dates]
-      (prn d))
+                     tc/to-local-date)
+                (tc/to-local-date (Date.)))]
+    #_(println "\nGame dates:" (pr-str (game-dates)))
+    (println "\nUsing date" today)
     (if (is-it-fucking-football-season? today)
       (do
         (println "\n\nUnfortunately it is fucking football season.")
