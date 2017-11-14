@@ -11,7 +11,7 @@
                  [ring/ring-jetty-adapter "1.6.2"]
                  [environ "1.1.0"]
                  [hiccup "1.0.5"]]
-  :min-lein-version "2.8.1"
+  :min-lein-version "2.7.1"
   :plugins [[environ/environ.lein "0.3.1"]]
   :hooks [environ.leiningen.hooks]
   :main ^:skip-aot isthereafuckingbroncosgame.cli
