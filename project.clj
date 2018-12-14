@@ -3,12 +3,12 @@
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.9.0-beta2"]
+  :dependencies [[org.clojure/clojure "1.9.0"]
                  [org.mnode.ical4j/ical4j "1.0.2"]
-                 [clj-http "3.7.0"]
-                 [clj-time "0.14.0"]
-                 [compojure "1.6.0"]
-                 [ring/ring-jetty-adapter "1.6.2"]
+                 [clj-http "3.9.1"]
+                 [clj-time "0.15.1"]
+                 [compojure "1.6.1"]
+                 [ring/ring-jetty-adapter "1.7.1"]
                  [environ "1.1.0"]
                  [hiccup "1.0.5"]]
   :min-lein-version "2.7.1"
