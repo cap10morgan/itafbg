@@ -9,8 +9,8 @@
   "https://www.stanza.co/api/schedules/nfl-broncos/nfl-broncos.ics")
 
 (def nfl-season
-  {:start (t/local-date 2017 9 7)
-   :end   (t/local-date 2018 2 4)})
+  {:start (t/local-date 2018 9 6)
+   :end   (t/local-date 2019 2 3)})
 
 (defn cal-date->local-date-time [date]
   (-> date
