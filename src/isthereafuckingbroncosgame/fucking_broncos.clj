@@ -8,9 +8,13 @@
 (def broncos-schedule-url
   "https://www.stanza.co/api/schedules/nfl-broncos/nfl-broncos.ics")
 
-(def nfl-season
-  {:start (t/local-date 2018 9 6)
-   :end   (t/local-date 2019 2 3)})
+(defn nfl-season []
+  (let [today (t/today)
+        year (if (> 3 (t/month today))
+               (dec (t/year today))
+               (t/year today))]
+    {:start (t/local-date year 9 1)
+     :end   (t/local-date (inc year) 2 10)}))
 
 (defn cal-date->local-date-time [date]
   (-> date
