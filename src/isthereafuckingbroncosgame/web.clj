@@ -18,6 +18,10 @@
     {:status 200
      :headers {"Content-Type" "text/html"}
      :body (html5 {}
+                  [:head
+                   [:title "Is there a fucking Broncos game today?"]
+                   [:meta {:name "viewport"
+                           :content "width=device-width, initial-scale=1"}]]
                   [:body
                    [:p "Today is " (tf/unparse-local-date
                                     (tf/formatter "EEEE, MMMM d, y") today)]
