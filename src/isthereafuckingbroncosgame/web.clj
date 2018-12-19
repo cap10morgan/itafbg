@@ -18,6 +18,7 @@
      :headers {"Content-Type" "text/html"}
      :body (html5 {}
                   [:body
+                   [:p "Today is " today]
                    [:h1 "Is there a fucking Broncos game?"]
                    (if (fb/is-it-fucking-football-season? today)
                      (if (fb/is-there-a-fucking-broncos-game? today)
