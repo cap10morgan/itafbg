@@ -8,11 +8,11 @@
 (def broncos-schedule-url
   "https://www.stanza.co/api/schedules/nfl-broncos/nfl-broncos.ics")
 
-(defn nfl-season []
-  (let [today (t/today)
-        year (if (> 3 (t/month today))
-               (dec (t/year today))
-               (t/year today))]
+(defn nfl-season [& [reference-date]]
+  (let [ref-date (or reference-date (t/today))
+        year (if (> 3 (t/month ref-date))
+               (dec (t/year ref-date))
+               (t/year ref-date))]
     {:start (t/local-date year 9 1)
      :end   (t/local-date (inc year) 2 10)}))
 
@@ -35,8 +35,8 @@
        :end   (cal-date->local-date-time (.getEndDate c))})))
 
 (defn is-it-fucking-football-season? [date]
-  (let [after-start? (t/after? date (:start nfl-season))
-        before-end? (t/before? date (:end nfl-season))]
+  (let [after-start? (t/after? date (:start (nfl-season)))
+        before-end? (t/before? date (:end (nfl-season)))]
     (and after-start? before-end?)))
 
 (defn is-this-fucking-game-on-this-date? [date {:keys [start]}]
