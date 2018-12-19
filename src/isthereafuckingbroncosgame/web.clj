@@ -1,5 +1,6 @@
 (ns isthereafuckingbroncosgame.web
   (:require [clj-time.coerce :as tc]
+            [clj-time.format :as tf]
             [compojure.core :refer [defroutes GET ANY]]
             [compojure.handler :refer [site]]
             [compojure.route :as route]
@@ -18,7 +19,8 @@
      :headers {"Content-Type" "text/html"}
      :body (html5 {}
                   [:body
-                   [:p "Today is " today]
+                   [:p "Today is " (tf/unparse-local-date
+                                    (tf/formatter "EEEE, MMMM d, y") today)]
                    [:h1 "Is there a fucking Broncos game?"]
                    (if (fb/is-it-fucking-football-season? today)
                      (if (fb/is-there-a-fucking-broncos-game? today)
