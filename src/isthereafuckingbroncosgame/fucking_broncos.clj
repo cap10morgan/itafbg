@@ -3,7 +3,8 @@
             [clj-time.coerce :as tc]
             [clj-http.client :as http])
   (:import (java.io StringReader)
-           (net.fortuna.ical4j.data CalendarBuilder)))
+           (net.fortuna.ical4j.data CalendarBuilder)
+           (net.fortuna.ical4j.util MapTimeZoneCache)))
 
 (def broncos-schedule-url
   "https://www.stanza.co/api/schedules/nfl-broncos/nfl-broncos.ics")
@@ -23,12 +24,18 @@
       (t/to-time-zone (t/time-zone-for-id "America/Denver"))
       tc/to-local-date-time))
 
+(def cal-builder
+  (delay
+   (System/setProperty "net.fortuna.ical4j.timezone.cache.impl"
+                       "net.fortuna.ical4j.util.MapTimeZoneCache")
+   (CalendarBuilder.)))
+
 (defn game-dates []
   (let [ical (-> broncos-schedule-url
                  http/get
                  :body)
         sr (StringReader. ical)
-        builder (CalendarBuilder.)
+        builder @cal-builder
         cal (.build builder sr)]
     (for [c (.getComponents cal)]
       {:start (cal-date->local-date-time (.getStartDate c))
