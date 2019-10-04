@@ -17,6 +17,7 @@
                                   (Date.)))]
     {:status 200
      :headers {"Content-Type" "text/html"}
+     ;; TODO: DRY up the messages w/ cli ns
      :body (html5 {}
                   [:head
                    [:title "Is there a fucking Broncos game today?"]
@@ -27,9 +28,19 @@
                                     (tf/formatter "EEEE, MMMM d, y") today)]
                    [:h1 "Is there a fucking Broncos game?"]
                    (if (fb/is-it-fucking-football-season? today)
-                     (if (fb/is-there-a-fucking-broncos-game? today)
-                       [:p "UGH! Yes, there is a fucking Broncos game today."]
-                       [:p "No Broncos bullshit today. Enjoy Denver!"])
+                     (let [game (fb/is-there-a-fucking-broncos-game? today)]
+                       (if game
+                         [:div {:class "fuck"}
+                          [:p "UGH! Yes, there is a fucking Broncos game today."]
+                          [:p "The fucking tee time or whatever is "
+                           (tf/unparse-local (tf/formatter "h:mm a")
+                                             (:start game)) "."]
+                          [:p
+                           "Stay home or find some place without a fucking TV."
+                           [:br]
+                           "Otherwise enjoy the fucking traffic, shouty morons, "
+                           "and large, annoying crowds."]]
+                         [:p "PHEW no Broncos bullshit today. Enjoy Denver!"]))
                      [:p "It's not even American Tackle Football Season, dawg!"])])}))
 
 (defroutes app

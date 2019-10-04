@@ -13,7 +13,7 @@
         year (if (> 3 (t/month ref-date))
                (dec (t/year ref-date))
                (t/year ref-date))]
-    {:start (t/local-date year 9 1)
+    {:start (t/local-date year 8 1)
      :end   (t/local-date (inc year) 2 10)}))
 
 (defn cal-date->local-date-time [date]
@@ -45,5 +45,5 @@
        (= (t/day start) (t/day date))))
 
 (defn is-there-a-fucking-broncos-game? [date]
-  (boolean (some (partial is-this-fucking-game-on-this-date? date)
-                 (game-dates))))
+  (some #(when (is-this-fucking-game-on-this-date? date %) %)
+        (game-dates)))
