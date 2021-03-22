@@ -3,8 +3,7 @@
             [clj-time.coerce :as tc]
             [clj-http.client :as http])
   (:import (java.io StringReader)
-           (net.fortuna.ical4j.data CalendarBuilder)
-           (net.fortuna.ical4j.util MapTimeZoneCache)))
+           (net.fortuna.ical4j.data CalendarBuilder)))
 
 (def broncos-schedule-url
   "https://www.stanza.co/api/schedules/nfl-broncos/nfl-broncos.ics")
