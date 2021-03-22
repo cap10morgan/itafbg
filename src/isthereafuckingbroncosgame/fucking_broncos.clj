@@ -41,8 +41,9 @@
        :end   (cal-date->local-date-time (.getEndDate c))})))
 
 (defn is-it-fucking-football-season? [date]
-  (let [after-start? (t/after? date (:start (nfl-season)))
-        before-end? (t/before? date (:end (nfl-season)))]
+  (let [season (nfl-season date)
+        after-start? (t/after? date (:start season))
+        before-end? (t/before? date (:end season))]
     (and after-start? before-end?)))
 
 (defn is-this-fucking-game-on-this-date? [date {:keys [start]}]
