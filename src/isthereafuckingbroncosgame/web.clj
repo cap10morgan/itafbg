@@ -8,6 +8,8 @@
             [ring.adapter.jetty :as jetty]
             [tick.core :as t]))
 
+(set! *warn-on-reflection* true)
+
 (defn home-page [date]
   (let [date (or date (t/today))
         date (fb/date-in-denver date)]

@@ -3,6 +3,8 @@
             [isthereafuckingbroncosgame.fucking-broncos :as fb])
   (:gen-class))
 
+(set! *warn-on-reflection* true)
+
 (defn run [{:keys [date] :or {date (fb/date-in-denver (t/today))}}]
   (let [date (if (string? date)
                (fb/date-in-denver date)
