@@ -1,2 +1,2 @@
-web: clojure -X:web
+web: clojure -X:web "{:port $PORT}"
 
