@@ -38,7 +38,7 @@
                               "and large, annoying crowds."]]
                             (let [next-game (fb/when-is-the-next-fucking-game? date)]
                               [:div {:class "phew"}
-                               [:p "PHEW no Broncos bullshit today. Enjoy Denver!"]
+                               [:p "PHEW no fucking Broncos bullshit today. Enjoy Denver!"]
                                (when next-game
                                  [:p "Heads up tho, dawg. The next fucking game is on "
                                   (t/format "EEEE, MMM d" (:start next-game))

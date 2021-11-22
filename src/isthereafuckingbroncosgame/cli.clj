@@ -27,7 +27,7 @@
               (println "Otherwise enjoy the fucking traffic, shouty morons,")
               (println "and large, annoying crowds."))
             (let [next-game (fb/when-is-the-next-fucking-game? date)]
-              (println "PHEW no Broncos bullshit today!")
+              (println "PHEW no fucking Broncos bullshit today!")
               (when next-game
                 (println "Heads up tho, dawg. The next fucking game is on"
                          (t/format "EEEE, MMM d" (:start next-game))
