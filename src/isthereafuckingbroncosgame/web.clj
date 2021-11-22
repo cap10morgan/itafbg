@@ -45,8 +45,8 @@
   (ANY "*" []
     (route/not-found "WTF you looking for?")))
 
-(defn run [{:keys [port] :or {port "8080"}}]
-  (let [port (Integer/parseInt port)
+(defn run [{:keys [port] :or {port 8080}}]
+  (let [port (if (string? port) (Integer/parseInt port) port)
         site (-> app (wrap-defaults site-defaults))]
     (println "Starting web server on port" port)
     (jetty/run-jetty site {:port port :join? false})))
