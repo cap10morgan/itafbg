@@ -36,7 +36,13 @@
                               [:br]
                               "Otherwise enjoy the fucking traffic, shouty morons, "
                               "and large, annoying crowds."]]
-                            [:p "PHEW no Broncos bullshit today. Enjoy Denver!"]))
+                            (let [next-game (fb/when-is-the-next-fucking-game? date)]
+                              [:div {:class "phew"}
+                               [:p "PHEW no Broncos bullshit today. Enjoy Denver!"]
+                               (when next-game
+                                 [:p "Heads up tho, dawg. The next fucking game is on "
+                                  (t/format "EEEE, MMM d" (:start next-game))
+                                  " at " (t/format "h:mm a" (:start next-game)) "."])])))
                         [:p "It's not even American Tackle Football Season, dawg!"])])}))
 
 (defroutes app

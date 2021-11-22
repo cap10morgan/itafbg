@@ -26,7 +26,12 @@
               (println "Stay home or find some place without a fucking TV.")
               (println "Otherwise enjoy the fucking traffic, shouty morons,")
               (println "and large, annoying crowds."))
-            (println "PHEW no Broncos bullshit today!"))))
+            (let [next-game (fb/when-is-the-next-fucking-game? date)]
+              (println "PHEW no Broncos bullshit today!")
+              (when next-game
+                (println "Heads up tho, dawg. The next fucking game is on"
+                         (t/format "EEEE, MMM d" (:start next-game))
+                         "at" (str (t/format "h:mm a" (:start next-game)) ".")))))))
       (println "\n\nIt's not even American Tackle football season, dawg."))))
 
 (defn -main [& args]

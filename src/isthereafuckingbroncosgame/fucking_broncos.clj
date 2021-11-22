@@ -67,3 +67,13 @@
 (defn is-there-a-fucking-broncos-game? [date]
   (some #(when (is-this-fucking-game-on-this-date? date %) %)
         (game-dates)))
+
+(defn when-is-the-next-fucking-game? [date]
+  (let [max-days-to-search 100]
+    (loop [d         date
+           remaining max-days-to-search]
+      (if-let [game (is-there-a-fucking-broncos-game? d)]
+        game
+        (when (< 0 remaining)
+          (recur (t/>> d (t/new-duration 1 :days))
+                 (dec remaining)))))))
