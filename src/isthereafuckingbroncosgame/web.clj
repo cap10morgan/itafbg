@@ -43,7 +43,11 @@
                                  [:p "Heads up tho, dawg. The next fucking game is on "
                                   (t/format "EEEE, MMM d" (:start next-game))
                                   " at " (t/format "h:mm a" (:start next-game)) "."])])))
-                        [:p "It's not even American Tackle Football Season, dawg!"])])}))
+                        [:p "It's not even American Tackle Football Season, dawg!"])
+                      [:h1
+                       [:a
+                        {:href "https://denverfan.com/2096930/the-oddsmakers-seem-to-think-aaron-rodgers-is-coming-to-the-broncos/"}
+                        "FUCK AARON RODGERS!!!!!"]]])}))
 
 (defroutes app
   (GET "/" [d]
