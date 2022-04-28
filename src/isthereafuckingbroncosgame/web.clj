@@ -6,9 +6,12 @@
             [hiccup.page :refer [html5]]
             [isthereafuckingbroncosgame.fucking-broncos :as fb]
             [ring.adapter.jetty :as jetty]
-            [tick.core :as t]))
+            [tick.core :as t])
+  (:gen-class))
 
 (set! *warn-on-reflection* true)
+
+(def ^:const default-port 80)
 
 (defn home-page [date]
   (let [date (or date (t/today))
@@ -51,11 +54,13 @@
   (ANY "*" []
     (route/not-found "WTF you looking for?")))
 
-(defn run [{:keys [port] :or {port 8080}}]
+(defn run [& [{:keys [port] :or {port default-port}}]]
   (let [port (if (string? port) (Integer/parseInt port) port)
         site (-> app (wrap-defaults site-defaults))]
     (println "Starting web server on port" port)
     (jetty/run-jetty site {:port port :join? false})))
 
 (defn -main [& [port]]
-  (run {:port (or port (:port env))}))
+  (if-let [p (or port (:port env))]
+    (run {:port p})
+    (run)))

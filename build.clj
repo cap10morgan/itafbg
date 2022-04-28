@@ -18,4 +18,5 @@
                   :class-dir class-dir})
   (b/uber {:class-dir class-dir
            :uber-file jar-file
-           :basis     basis}))
+           :basis     basis
+           :main      'isthereafuckingbroncosgame.web}))
