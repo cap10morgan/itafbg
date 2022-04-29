@@ -49,6 +49,10 @@
                         [:p "It's not even American Tackle Football Season, dawg!"])])}))
 
 (defroutes app
+  (GET "/health" []
+    {:status 200
+     :headers {}
+     :body ""})
   (GET "/" [d]
     (home-page d))
   (ANY "*" []
