@@ -1,17 +1,17 @@
-{:deps  {org.clojure/clojure           {:mvn/version "1.10.3"}
-         org.mnode.ical4j/ical4j       {:mvn/version "3.1.0"}
+{:deps  {org.clojure/clojure           {:mvn/version "1.11.1"}
+         org.mnode.ical4j/ical4j       {:mvn/version "3.2.5"}
          clj-http/clj-http             {:mvn/version "3.12.3"}
-         tick/tick                     {:mvn/version "0.5.0-RC2"}
-         compojure/compojure           {:mvn/version "1.6.2"}
-         ring/ring-defaults            {:mvn/version "0.3.2"}
-         ring/ring-jetty-adapter       {:mvn/version "1.9.4"}
+         tick/tick                     {:mvn/version "0.5.0"}
+         compojure/compojure           {:mvn/version "1.7.0"}
+         ring/ring-defaults            {:mvn/version "0.3.3"}
+         ring/ring-jetty-adapter       {:mvn/version "1.9.6"}
          environ/environ               {:mvn/version "1.2.0"}
          hiccup/hiccup                 {:mvn/version "1.0.5"}}
  :paths ["src"]
  :aliases
  {:build
   {:deps       {io.github.clojure/tools.build
-                {:tag "v0.5.1" :sha "599be6c"}}
+                {:tag "v0.8.3" :sha "abb61d3"}}
    :ns-default build}
 
   :cli
@@ -21,11 +21,11 @@
   {:exec-fn isthereafuckingbroncosgame.web/run}
 
   :eastwood
-  {:extra-deps {jonase/eastwood {:mvn/version "0.9.9"}}
+  {:extra-deps {jonase/eastwood {:mvn/version "1.2.5"}}
    :main-opts ["-m" "eastwood.lint" {}]}
 
   :test
   {:extra-paths ["test"]
    :extra-deps {io.github.cognitect-labs/test-runner
-                {:tag "v0.5.0" :sha "48c3c67"}}
+                {:tag "v0.5.1" :sha "5e91ee0"}}
    :exec-fn cognitect.test-runner.api/test}}}
