@@ -32,20 +32,34 @@
                           (if game
                             [:div {:class "fuck"}
                              [:p "UGH! Yes, there is a fucking Broncos game today."]
-                             [:p "The fucking tee time or whatever is "
+                             [:p {:style "margin-top: 30pt"} "The fucking tee time or whatever is "
                               (t/format "h:mm a" (:start game)) "."]
+                             [:p "They're playing the fucking " (:opponent game)
+                              " but who gives a shit?"]
+                             [:p (if (fb/home-game? game)
+                                   "It's a home game, so better stay at least 10 miles from Colfax & Federal."
+                                   "It's an away game, so probably even worse at bars and restaurants.")]
                              [:p
                               "Stay home or find some place without a fucking TV."
                               [:br]
-                              "Otherwise enjoy the fucking traffic, shouty morons, "
+                              "Otherwise enjoy the "
+                              (if (fb/home-game? game)
+                                "fucking traffic "
+                                "loud-ass televisions ")
                               "and large, annoying crowds."]]
                             (let [next-game (fb/when-is-the-next-fucking-game? date)]
                               [:div {:class "phew"}
                                [:p "PHEW no fucking Broncos bullshit today. Enjoy Denver!"]
                                (when next-game
-                                 [:p "Heads up tho, dawg. The next fucking game is on "
-                                  (t/format "EEEE, MMM d" (:start next-game))
-                                  " at " (t/format "h:mm a" (:start next-game)) "."])])))
+                                 [:div {:style "margin-top: 30pt"}
+                                  [:p "Heads up tho, dawg. The next fucking game is on "
+                                   (t/format "EEEE, MMM d" (:start next-game))
+                                   " at " (t/format "h:mm a" (:start next-game)) "."]
+                                  [:p "They're playing the fucking " (:opponent next-game)
+                                   " but who gives a shit?"]
+                                  [:p (if (fb/home-game? next-game)
+                                        "It's a home game. Meaning \"You should stay home that day.\""
+                                        "It's an away game. Hopefully far away.")]])])))
                         [:p "It's not even American Tackle Football Season, dawg!"])])}))
 
 (defroutes app

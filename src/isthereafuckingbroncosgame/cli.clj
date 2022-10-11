@@ -1,6 +1,7 @@
 (ns isthereafuckingbroncosgame.cli
-  (:require [tick.core :as t]
-            [isthereafuckingbroncosgame.fucking-broncos :as fb])
+  (:require
+    [tick.core :as t]
+    [isthereafuckingbroncosgame.fucking-broncos :as fb])
   (:gen-class))
 
 (set! *warn-on-reflection* true)
@@ -23,15 +24,28 @@
               (println "UGH there is a fucking Broncos game today.")
               (println "The fucking tee time or whatever is"
                        (str (t/format "h:mm a" (:start game)) "."))
+              (println "They're playing the fucking" (:opponent game)
+                       "but who gives a shit?")
+              (if (fb/home-game? game)
+                (println "It's a home game, so better stay at least 10 miles from Colfax & Federal.")
+                (println "It's an away game, so probably even worse at bars and restaurants."))
               (println "Stay home or find some place without a fucking TV.")
-              (println "Otherwise enjoy the fucking traffic, shouty morons,")
+              (println (str "Otherwise enjoy the ")
+                       (if (fb/home-game? game)
+                         "fucking traffic"
+                         "loud-ass televisions"))
               (println "and large, annoying crowds."))
             (let [next-game (fb/when-is-the-next-fucking-game? date)]
               (println "PHEW no fucking Broncos bullshit today!")
               (when next-game
                 (println "Heads up tho, dawg. The next fucking game is on"
                          (t/format "EEEE, MMM d" (:start next-game))
-                         "at" (str (t/format "h:mm a" (:start next-game)) ".")))))))
+                         "at" (str (t/format "h:mm a" (:start next-game)) "."))
+                (println "They're playing the fucking" (:opponent next-game)
+                         "but who gives a shit?")
+                (println (if (fb/home-game? next-game)
+                           "It's a home game. Meaning \"You should stay home that day.\""
+                           "It's an away game. Hopefully far away.")))))))
       (println "\n\nIt's not even American Tackle football season, dawg."))))
 
 (defn -main [& args]

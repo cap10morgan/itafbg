@@ -1,11 +1,13 @@
 (ns isthereafuckingbroncosgame.fucking-broncos
-  (:require [tick.core :as t]
-            [clj-http.client :as http])
+  (:require
+    [clojure.string :as str]
+    [tick.core :as t]
+    [clj-http.client :as http])
   (:import (java.io StringReader)
            (java.time Month Year)
            (net.fortuna.ical4j.data CalendarBuilder)
            (net.fortuna.ical4j.model.component VEvent)
-           (net.fortuna.ical4j.model.property DateProperty)))
+           (net.fortuna.ical4j.model.property DateProperty Location)))
 
 (set! *warn-on-reflection* true)
 
@@ -50,8 +52,16 @@
         ^CalendarBuilder builder @cal-builder
         cal                      (.build builder sr)]
     (for [c (.getComponents cal)]
-      {:start (cal-date->local-date-time (.getStartDate ^VEvent c))
-       :end   (cal-date->local-date-time (.getEndDate ^VEvent c))})))
+      (let [location (.. ^VEvent c getLocation getValue)
+            opponent (->> ^VEvent c
+                          .getSummary
+                          .getValue
+                          (re-find #"^Broncos (?:at|vs) (\w+)")
+                          second)]
+        {:start (cal-date->local-date-time (.getStartDate ^VEvent c))
+         :end   (cal-date->local-date-time (.getEndDate ^VEvent c))
+         :location location
+         :opponent opponent}))))
 
 (defn is-it-fucking-football-season? [date]
   (let [season       (nfl-season date)
@@ -67,6 +77,10 @@
 (defn is-there-a-fucking-broncos-game? [date]
   (some #(when (is-this-fucking-game-on-this-date? date %) %)
         (game-dates)))
+
+(defn home-game?
+  [game]
+  (str/includes? (:location game) "Denver CO"))
 
 (defn when-is-the-next-fucking-game? [date]
   (let [max-days-to-search 100]
