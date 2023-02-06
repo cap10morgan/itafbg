@@ -3,3 +3,6 @@
 target/
 .idea/
 .lsp/
+Dockerfile*
+.nrepl-port
+/public/*

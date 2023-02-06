@@ -1,13 +1,18 @@
 {:deps  {org.clojure/clojure     {:mvn/version "1.11.1"}
-         org.mnode.ical4j/ical4j {:mvn/version "3.2.5"}
+         org.mnode.ical4j/ical4j {:mvn/version "3.2.7"}
          clj-http/clj-http       {:mvn/version "3.12.3"}
          tick/tick               {:mvn/version "0.5.0"}
          compojure/compojure     {:mvn/version "1.7.0"}
          ring/ring-defaults      {:mvn/version "0.3.4"}
          ring/ring-jetty-adapter {:mvn/version "1.9.6"}
          environ/environ         {:mvn/version "1.2.0"}
-         hiccup/hiccup           {:mvn/version "1.0.5"}}
- :paths ["src"]
+         hiccup/hiccup           {:mvn/version "1.0.5"}
+         aero/aero               {:mvn/version "1.1.6"}
+         cheshire/cheshire       {:mvn/version "5.11.0"}
+         #_#_com.timetraveltoaster/cloudflare-dnslink {:local/root "../cloudflare-dnslink"}}
+
+ :paths ["src" "resources"]
+
  :aliases
  {:build
   {:deps       {io.github.clojure/tools.build
@@ -18,7 +23,15 @@
   {:exec-fn isthereafuckingbroncosgame.cli/run}
 
   :web
-  {:exec-fn isthereafuckingbroncosgame.web/run}
+  {:exec-fn isthereafuckingbroncosgame.web.static/run}
+
+  :html
+  {:exec-fn   isthereafuckingbroncosgame.web.static/generate-html
+   :exec-args {:path "./public/static/index.html"}}
+
+  :dhtml
+  {:exec-fn   isthereafuckingbroncosgame.web.dynamic/generate-html
+   :exec-args {:path "./public/dynamic/"}}
 
   :eastwood
   {:extra-deps {jonase/eastwood {:mvn/version "1.3.0"}}
