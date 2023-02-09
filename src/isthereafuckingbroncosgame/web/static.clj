@@ -24,10 +24,17 @@
      ;; TODO: DRY up the messages w/ cli ns
      :body    (html5
                 {}
-                [:head
+                [:head {:prefix "og: https://ogp.me/ns#"}
                  [:title "Is there a fucking Broncos game today?"]
                  [:meta {:name    "viewport"
-                         :content "width=device-width, initial-scale=1"}]]
+                         :content "width=device-width, initial-scale=1"}]
+                 [:meta {:property "og:title"
+                         :content "Is there a fucking Broncos game?"}]
+                 [:meta {:property "og:type", :content "website"}]
+                 [:meta {:property "og:url"
+                         :content "https://isthereafuckingbroncosga.me/"}]
+                 [:meta {:property "og:image"
+                         :content "https://obj.denvr.social/accounts/avatars/109/779/938/817/459/319/original/1d3182ea64653302.jpg"}]]
                 [:body
                  [:p "Today is " (t/format "EEEE, MMMM d, y" date)]
                  [:h1 "Is there a fucking Broncos game?"]

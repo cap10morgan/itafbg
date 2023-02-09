@@ -7,6 +7,9 @@
            (java.time Month Year)
            (net.fortuna.ical4j.data CalendarBuilder)
            (net.fortuna.ical4j.model.component VEvent)
+
+           ;; Don't delete the Location import. It isn't used explicitly in here
+           ;; but it is needed.
            (net.fortuna.ical4j.model.property DateProperty Location)))
 
 (set! *warn-on-reflection* true)
