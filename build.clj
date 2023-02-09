@@ -31,11 +31,14 @@
   (clean nil)
   (b/process {:command-args ["clojure" "-X:dhtml"]}))
 
-(defn ipfs-update [{:keys [remote quiet?]}]
+(defn ipfs-update [{:keys [remote quiet? web-ns] :or {web-ns :static}}]
   (html nil)
   (let [remote (name remote)
+        web-ns (name web-ns)
         {:keys [exit out err]} (b/process {:command-args
-                                           ["ipfs" "add" "-Q" "public/index.html"]
+                                           ["ipfs" "add" "-Q"
+                                            (str "public/" web-ns
+                                                 "/index.html")]
                                            :out :capture
                                            :err :capture})
         _ (when-not (zero? exit)
