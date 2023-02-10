@@ -25,13 +25,20 @@
      :body
      (html5
        {}
-       [:head
+       [:head {:prefix "og: https://ogp.me/ns#"}
         [:title "Is there a fucking Broncos game today?"]
         [:meta {:name    "viewport"
                 :content "width=device-width, initial-scale=1"}]
         [:script {:src "today.js"}]
         [:script "document.addEventListener(\"DOMContentLoaded\", setTodayElement);"]
-        [:script "window.setInterval(setTodayElement, 3600000);"]]
+        [:script "window.setInterval(setTodayElement, 3600000);"]
+        [:meta {:property "og:title"
+                :content "Is there a fucking Broncos game?"}]
+        [:meta {:property "og:type", :content "website"}]
+        [:meta {:property "og:url"
+                :content "https://isthereafuckingbroncosga.me/"}]
+        [:meta {:property "og:image"
+                :content "https://obj.denvr.social/accounts/avatars/109/779/938/817/459/319/original/1d3182ea64653302.jpg"}]]
        [:body
         [:p {:id "today-element"}]
         [:h1 "Is there a fucking Broncos game?"]
