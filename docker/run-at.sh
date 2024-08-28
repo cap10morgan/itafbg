@@ -11,7 +11,7 @@ build_site() {
 # run once on startup
 build_site
 
-WAKEUP=$1
+WAKEUP=${1:-2:42}
 
 while :
 do
