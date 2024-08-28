@@ -1,4 +1,4 @@
-FROM clojure:openjdk-11-tools-deps-1.11.1.1113-slim-bullseye AS build
+FROM clojure:temurin-21-tools-deps-1.11.4.1474-bookworm-slim AS build
 
 WORKDIR /usr/src/itafbg
 
@@ -8,7 +8,7 @@ RUN clojure -P
 COPY . .
 RUN clojure -T:build uber
 
-FROM eclipse-temurin:17-jre-focal AS run
+FROM eclipse-temurin:21-jre-noble AS run
 
 WORKDIR /opt/itafbg
 
