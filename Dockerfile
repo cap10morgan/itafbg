@@ -8,12 +8,6 @@ RUN clojure -P
 COPY . .
 RUN clojure -T:build uber
 
-FROM eclipse-temurin:21-jre-noble AS run
-
-WORKDIR /opt/itafbg
-
-COPY --from=build /usr/src/itafbg/target/isthereafuckingbroncosgame.web.static.jar ./
-
 EXPOSE 80
 
-CMD ["java", "-jar", "isthereafuckingbroncosgame.web.static.jar"]
+CMD ["docker/run-at.sh"]
