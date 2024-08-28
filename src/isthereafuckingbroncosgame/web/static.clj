@@ -33,7 +33,7 @@
                  [:meta {:property "og:image"
                          :content "https://obj.denvr.social/accounts/avatars/109/779/938/817/459/319/original/1d3182ea64653302.jpg"}]]
                 [:body
-                 [:p "Today is " (t/format "EEEE, MMMM d, y" date)]
+                 [:p "Today is " (fb/format-date-time "EEEE, MMMM d, y" date)]
                  [:h1 "Is there a fucking Broncos game?"]
                  (if (fb/is-it-fucking-football-season? date)
                    (let [game (fb/is-there-a-fucking-broncos-game? date)]
@@ -41,7 +41,7 @@
                        [:div {:class "fuck"}
                         [:p "UGH! Yes, there is a fucking Broncos game today."]
                         [:p {:style "margin-top: 30pt"} "The fucking tee time or whatever is "
-                         (t/format "h:mm a" (:start game)) "."]
+                         (fb/format-date-time "h:mm a" (:start game)) "."]
                         [:p "They're playing the fucking " (:opponent game)
                          " but who gives a shit?"]
                         [:p (if (fb/home-game? game)
@@ -61,8 +61,8 @@
                           (when next-game
                             [:div {:style "margin-top: 30pt"}
                              [:p "Heads up tho, dogg. The next fucking game is on "
-                              (t/format "EEEE, MMM d" (:start next-game))
-                              " at " (t/format "h:mm a" (:start next-game)) "."]
+                              (fb/format-date-time "EEEE, MMM d" (:start next-game))
+                              " at " (fb/format-date-time "h:mm a" (:start next-game)) "."]
                              [:p "They're playing the fucking " (:opponent next-game)
                               " but who gives a shit?"]
                              [:p (if (fb/home-game? next-game)
