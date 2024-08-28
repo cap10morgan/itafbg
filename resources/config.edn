@@ -1,5 +1,1 @@
-{:fuckingbroncos
- {:default-port 80}
- :cloudflare
- {:api-token #op {:account   "wklefam"
-                  :reference "op://Personal/Cloudflare/api keys/isthereafuckingbroncosga.me"}}}
+{:default-port 80}
