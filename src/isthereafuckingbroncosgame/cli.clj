@@ -1,17 +1,17 @@
 (ns isthereafuckingbroncosgame.cli
   (:require
-    [tick.core :as t]
-    [isthereafuckingbroncosgame.fucking-broncos :as fb]
-    [cheshire.core :as json])
-  (:gen-class))
+   [isthereafuckingbroncosgame.fucking-broncos :as fb]
+   [cheshire.core :as json])
+  (:gen-class)
+  (:import (java.time LocalDate)))
 
 (set! *warn-on-reflection* true)
 
-(defn run [{:keys [date] :or {date (fb/date-in-denver (t/today))}}]
+(defn run [{:keys [date] :or {date (LocalDate/now)}}]
   (let [mode    (some-> "ITAFBG_MODE" System/getenv keyword)
         fmt     (some-> "ITAFBG_FMT" System/getenv keyword)
         date    (if (string? date)
-                  (fb/date-in-denver date)
+                  (LocalDate/parse date)
                   date)
         denver  (if (= :masto mode)
                   "#Denver"

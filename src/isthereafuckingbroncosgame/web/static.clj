@@ -1,24 +1,21 @@
 (ns isthereafuckingbroncosgame.web.static
   (:require
-    [clojure.java.io :as io]
-    [compojure.core :refer [defroutes GET ANY]]
-    [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
-    [compojure.route :as route]
-    [environ.core :refer [env]]
-    [hiccup.page :refer [html5]]
-    [isthereafuckingbroncosgame.fucking-broncos :as fb]
-    [ring.adapter.jetty :as jetty]
-    [tick.core :as t]
-    [isthereafuckingbroncosgame.config :refer [config]])
-  (:gen-class))
+   [clojure.java.io :as io]
+   [compojure.core :refer [defroutes GET ANY]]
+   [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
+   [compojure.route :as route]
+   [environ.core :refer [env]]
+   [hiccup.page :refer [html5]]
+   [isthereafuckingbroncosgame.fucking-broncos :as fb]
+   [ring.adapter.jetty :as jetty]
+   [isthereafuckingbroncosgame.config :refer [config]])
+  (:gen-class)
+  (:import (java.time LocalDate)))
 
 (set! *warn-on-reflection* true)
 
-(def ^:const default-port 80)
-
 (defn home-page [date]
-  (let [date (or date (t/today))
-        date (fb/date-in-denver date)]
+  (let [date (or date (LocalDate/now))]
     {:status  200
      :headers {"Content-Type" "text/html"}
      ;; TODO: DRY up the messages w/ cli ns
