@@ -12,3 +12,5 @@ pom.xml.asc
 /.cpcache
 /.eastwood
 public/*
+docker/public/*
+!docker/public/.gitkeep
