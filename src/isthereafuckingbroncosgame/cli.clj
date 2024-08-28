@@ -22,7 +22,7 @@
         output (with-out-str
                  ;; TODO: DRY up the messages w/ web ns
                  ;(println "\nGame dates:" (pr-str (fb/game-dates)))
-                 (println "Today is" (str (t/format "EEEE, MMMM d, y" date) "."))
+                 (println "Today is" (str (fb/format-date-time "EEEE, MMMM d, y" date) "."))
                  (println "\nIs there a fucking" (second broncos) "game?")
                  (if (fb/is-it-fucking-football-season? date)
                    (let [game (fb/is-there-a-fucking-broncos-game? date)]
@@ -31,7 +31,7 @@
                        (do
                          (println "UGH there is a fucking" (second broncos) "game today.")
                          (println "The fucking tee time or whatever is"
-                                  (str (t/format "h:mm a" (:start game)) "."))
+                                  (str (fb/format-date-time "h:mm a" (:start game)) "."))
                          (println "They're playing the fucking" (:opponent game)
                                   "but who gives a shit?")
                          (if (fb/home-game? game)
@@ -51,8 +51,8 @@
                                   (str denver "!"))
                          (when next-game
                            (println "Heads up tho, dawg. The next fucking game is on"
-                                    (t/format "EEEE, MMM d" (:start next-game))
-                                    "at" (str (t/format "h:mm a" (:start next-game)) "."))
+                                    (fb/format-date-time "EEEE, MMM d" (:start next-game))
+                                    "at" (str (fb/format-date-time "h:mm a" (:start next-game)) "."))
                            (println "They're playing the fucking" (:opponent next-game)
                                     "but who gives a shit?")
                            (println (if (fb/home-game? next-game)
