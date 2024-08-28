@@ -98,7 +98,7 @@
     (-> html-path io/file (spit html))
     (->> "js/today.js" io/resource slurp (spit js-path))))
 
-(defn -main [{:keys [port generate]}]
+(defn -main [& [{:keys [port generate]}]]
   (if-let [p (or port (:port env))]
     (run {:port p})
     (if-let [gen-path generate]
