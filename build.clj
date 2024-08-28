@@ -2,7 +2,7 @@
   (:require [clojure.tools.build.api :as b]
             [clojure.string :as str]))
 
-(def lib 'isthereafuckingbroncosgame.web.static)
+(def lib 'isthereafuckingbroncosgame.web.dynamic)
 (def class-dir "target/classes")
 (def basis (b/create-basis {:project "deps.edn"}))
 (def jar-file (format "target/%s.jar" (name lib)))
@@ -13,7 +13,7 @@
 
 (defn uber [_]
   (clean nil)
-  (b/copy-dir {:src-dirs   ["src"]
+  (b/copy-dir {:src-dirs   ["src" "resources"]
                :target-dir class-dir})
   (b/compile-clj {:basis     basis
                   :src-dirs  ["src"]
@@ -21,7 +21,7 @@
   (b/uber {:class-dir class-dir
            :uber-file jar-file
            :basis     basis
-           :main      'isthereafuckingbroncosgame.web.static}))
+           :main      lib}))
 
 (defn html [_]
   (clean nil)
@@ -67,4 +67,3 @@
 
 (defn deploy [_]
   (ipfs-update :pinata))
-
