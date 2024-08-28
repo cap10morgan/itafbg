@@ -26,11 +26,15 @@
 
   :html
   {:exec-fn   isthereafuckingbroncosgame.web.static/generate-html
-   :exec-args {:path "./public/static/index.html"}}
+   :exec-args {:path "./public/static/index.html"}
+   ;; the CREATED fields in the official Broncos ICS file are missing a TZ specifier
+   :jvm-opts ["-Dical4j.parsing.relaxed=true"]}
 
   :dhtml
   {:exec-fn   isthereafuckingbroncosgame.web.dynamic/generate-html
-   :exec-args {:path "./public/dynamic/"}}
+   :exec-args {:path "./public/dynamic/"}
+   ;; the CREATED fields in the official Broncos ICS file are missing a TZ specifier
+   :jvm-opts ["-Dical4j.parsing.relaxed=true"]}
 
   :eastwood
   {:extra-deps {jonase/eastwood {:mvn/version "1.4.3"}}

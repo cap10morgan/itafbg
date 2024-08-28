@@ -13,7 +13,7 @@
 (set! *warn-on-reflection* true)
 
 (def broncos-schedule-url
-  "https://www.stanza.co/api/schedules/nfl-broncos/nfl-broncos.ics")
+  "https://www.denverbroncos.com/api/addToCalendar/ag/s?text=")
 
 (def ^ZoneId denver-tz
   (ZoneId/of "America/Denver"))
@@ -60,12 +60,17 @@
         ^CalendarBuilder builder @cal-builder
         cal                      (.build builder sr)]
     (for [c (.getComponents cal)]
-      (let [location (.. ^VEvent c getLocation getValue)
-            opponent (->> ^VEvent c
-                          .getSummary
-                          .getValue
-                          (re-find #"^Broncos (?:at|vs) (\w+)")
-                          second)]
+      (let [maybe-location (.. ^VEvent c getLocation)
+            location       (when (.isPresent maybe-location)
+                             (let [^Location location (.get maybe-location)]
+                               (.getValue location)))
+            maybe-summary  (.. ^VEvent c getSummary)
+            summary        (when (.isPresent maybe-summary)
+                             (let [^Summary summary (.get maybe-summary)]
+                               (.getValue summary)))
+            opponent       (some-> ^Summary summary
+                                   (str/split #" at ")
+                                   find-opponent)]
         {:start    (cal-date->local-date-time (.getDateTimeStart ^VEvent c))
          :end      (cal-date->local-date-time (.getDateTimeEnd ^VEvent c))
          :location location
@@ -88,7 +93,7 @@
 
 (defn home-game?
   [game]
-  (str/includes? (:location game) "Denver CO"))
+  (str/includes? (:location game) "Denver"))
 
 (defn when-is-the-next-fucking-game? [^LocalDate date]
   (let [max-days-to-search 100]
