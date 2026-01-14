@@ -1,4 +1,4 @@
-FROM clojure:temurin-21-tools-deps-1.11.4.1474-bookworm-slim AS build
+FROM clojure:temurin-25-tools-deps-1.12.4.1582-trixie-slim AS build
 
 WORKDIR /usr/src/itafbg
 
