@@ -46,7 +46,7 @@
                [:p "UGH! Yes, there is a fucking Broncos game today."]
                [:p {:style "margin-top: 30pt"} "The fucking tee time or whatever is "
                 (fb/format-date-time "h:mm a" (:start game)) "."]
-               (if (= "Bills" (:opponent game))
+               (if (= "Buffalo Bills" (:opponent game))
                  [:p "They're playing the Buffalo Fucking Bills who hopefully just destroy them and end their season as soon as possible."]
                  [:p "They're playing the fucking " (:opponent game) " but who gives a shit?"])
                [:p (if (fb/home-game? game)
@@ -68,7 +68,7 @@
                     [:p "Heads up tho, dogg. The next fucking game is on "
                      (fb/format-date-time "EEEE, MMM d" (:start next-game))
                      " at " (fb/format-date-time "h:mm a" (:start next-game)) "."]
-                    (if (= "Bills" (:opponent next-game))
+                    (if (= "Buffalo Bills" (:opponent next-game))
                       [:p "They're playing the Buffalo Fucking Bills who hopefully just destroy them and end their season as soon as possible."]
                       [:p "They're playing the fucking " (:opponent next-game) " but who gives a shit?"])
                     [:p (if (fb/home-game? next-game)
